@@ -50,7 +50,7 @@ public class TestMath {
     }
 
     @Test
-    public void testVolumeRectanglar() throws Exception{
+    public void testVolumeRectangular() throws Exception{
         this.mvc.perform(post("/math/volume/rectangle/4/5/6"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("The volume of a 4x5x6 rectangle is 120"));

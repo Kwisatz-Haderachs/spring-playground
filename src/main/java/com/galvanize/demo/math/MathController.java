@@ -8,29 +8,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@ComponentScan(basePackages = "com.galvanize.demo.math")
 @RestController
+@RequestMapping("/math")
 public class MathController {
     private MathService ms;
     public MathController(MathService ms){
         this.ms  = ms;
     }
 
-    @GetMapping("/math/pi")
+    @GetMapping("/pi")
     public String servePi(){
-        return "3.14159265358979323846264338327950288419716939937510";
+        return ms.getPi()+"";
     }
 
-    @GetMapping("/math/calculate")
+    @GetMapping("/calculate")
     public String calculate(@RequestParam String operation, @RequestParam int x, @RequestParam int y){
         return ms.operation(operation, x, y);
     }
-    @PostMapping("/math/sum")
+    @PostMapping("/sum")
     public String sum(@RequestParam MultiValueMap<String, String> nums) {
         return ms.sum(nums.get("n"));
     }
-    @PostMapping("/math/volume/{length}/{width}/{height}")
-    public String volume(@PathVariable int length, @PathVariable int width, @PathVariable int height){
-        return ms.volume(length, width, height);
+
+    @PostMapping("/volume/rectangle/{length}/{width}/{height}")
+    public String volumeRec(@PathVariable int length, @PathVariable int width, @PathVariable int height) {
+        return ms.volumeRectangular(length, width, height);
     }
+    @PostMapping("/volume/sphere/{radius}")
+    public String volumeSph(@PathVariable double radius){
+        return ms.volumeSphere(radius);
+    }
+    @PostMapping("/volume/cylinder/{radius}/{height}")
+    public String volumeCyl(@PathVariable int radius, @PathVariable int height){
+        return ms.volumeCylindrical(radius, height);
+    }
+
 }

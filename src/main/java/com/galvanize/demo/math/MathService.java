@@ -6,14 +6,7 @@ import java.util.List;
 
 @Service
 public class MathService {
-    private List<Integer> numbers;
     private final double PI = 3.14159265358979323846264338327950288419716939937510;
-    public List<Integer> getNumbers(){
-        return numbers;
-    }
-    public void setNumbers(List<Integer> numbers) {
-        this.numbers = numbers;
-    }
 
     public double getPi(){
         return PI;
@@ -27,12 +20,12 @@ public class MathService {
             default -> String.format("%d / %d = %d", x, y, x / y);
         };
     }
-    public String sum (List<String> nums){
+    public String sum (List<Integer> numbers){
         StringBuilder sb = new StringBuilder();
         int sum = 0;
-        for (String n :nums) {
+        for (Integer n :numbers) {
             sb.append(n).append(" + ");
-            sum += Integer.parseInt(n);
+            sum += n;
         }
         sb.replace(sb.length()-3,sb.length()," = ").append(sum);
         return sb.toString();

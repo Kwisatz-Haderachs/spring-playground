@@ -3,10 +3,12 @@ package com.galvanize.demo.math;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/math")
 public class MathController {
-    private MathService ms;
+    private final MathService ms;
     public MathController(MathService ms){
         this.ms  = ms;
     }
@@ -19,8 +21,8 @@ public class MathController {
         return ms.operation(operation, x, y);
     }
     @PostMapping("/sum")
-    public String sum(@RequestParam MultiValueMap<String, String> nums) {
-        return ms.sum(nums.get("n"));
+    public String sum(@RequestParam List<Integer> n) {
+        return ms.sum(n);
     }
     @PostMapping("/volume/rectangle/{length}/{width}/{height}")
     public String volumeRec(@PathVariable int length, @PathVariable int width, @PathVariable int height) {

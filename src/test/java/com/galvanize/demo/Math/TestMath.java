@@ -40,9 +40,9 @@ public class TestMath {
 
     @Test
     public void testSum() throws Exception{
-        this.mvc.perform(post("/math/sum?n=4&n=5&n=6"))
+        this.mvc.perform(post("/math/sum?n=4&n=5&n=6&n=7&n=8"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("4 + 5 + 6 = 15"));
+                .andExpect(content().string("4 + 5 + 6 + 7 + 8 = 30"));
     }
 
     @Test

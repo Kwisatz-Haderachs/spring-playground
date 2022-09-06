@@ -36,6 +36,10 @@ public class TestMath {
                 .andExpect(content().string("4 * 6 = 24"));
         this.mvc.perform(get("/math/calculate?operation=divide&x=30&y=5"))
                 .andExpect(content().string("30 / 5 = 6"));
+        this.mvc.perform(get("/math/calculate?operation=exponent&x=2&y=5"))
+                .andExpect(content().string("2 ^ 5 = 32"));
+        this.mvc.perform(get("/math/calculate?x=30&y=5"))
+                .andExpect(content().string("30 + 5 = 35"));
     }
 
     @Test

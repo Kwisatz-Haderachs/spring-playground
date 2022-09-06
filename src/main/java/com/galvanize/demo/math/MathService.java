@@ -17,7 +17,9 @@ public class MathService {
             case ("add") -> String.format("%d + %d = %d", x, y, x + y);
             case ("subtract") -> String.format("%d - %d = %d", x, y, x - y);
             case ("multiply") -> String.format("%d * %d = %d", x, y, x * y);
-            default -> String.format("%d / %d = %d", x, y, x / y);
+            case ("divide") -> String.format("%d / %d = %d", x, y, x / y);
+            case ("exponent") -> String.format("%d ^ %d = %.0f", x,y, Math.pow(x, y));
+            default -> "Operation not found!";
         };
     }
     public String sum (List<Integer> numbers){

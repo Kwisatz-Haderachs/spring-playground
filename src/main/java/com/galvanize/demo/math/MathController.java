@@ -17,7 +17,10 @@ public class MathController {
         return ms.getPi()+"";
     }
     @GetMapping("/calculate")
-    public String calculate(@RequestParam String operation, @RequestParam int x, @RequestParam int y){
+    public String calculate(
+            @RequestParam(required = false, defaultValue = "add") String operation,
+            @RequestParam int x,
+            @RequestParam int y){
         return ms.operation(operation, x, y);
     }
     @PostMapping("/sum")
@@ -25,7 +28,10 @@ public class MathController {
         return ms.sum(n);
     }
     @PostMapping("/volume/rectangle/{length}/{width}/{height}")
-    public String volumeRec(@PathVariable int length, @PathVariable int width, @PathVariable int height) {
+    public String volumeRec(
+            @PathVariable int length,
+            @PathVariable int width,
+            @PathVariable int height) {
         return ms.volumeRectangular(length, width, height);
     }
     @PostMapping("/volume/sphere/{radius}")

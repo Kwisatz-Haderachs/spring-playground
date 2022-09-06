@@ -1,7 +1,10 @@
 package com.galvanize.demo.math;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
+@Service
 public class MathService {
     private List<Integer> numbers;
     public List<Integer> getNumbers(){
@@ -28,6 +31,10 @@ public class MathService {
         }
         sb.replace(sb.length()-3,sb.length()," = ").append(sum);
         return sb.toString();
+    }
+
+    public String volume (int l, int w, int h){
+        return String.format("The volume of a %dx%dx%d rectangle is %d", l, w, h,(l*w*h));
     }
 
 }

@@ -1,17 +1,17 @@
 package com.galvanize.demo.math;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@ComponentScan(basePackages = "com.galvanize.demo.math")
 @RestController
 public class MathController {
-    private final MathService ms;
+    private MathService ms;
     public MathController(MathService ms){
         this.ms  = ms;
     }
@@ -29,5 +29,8 @@ public class MathController {
     public String sum(@RequestParam MultiValueMap<String, String> nums) {
         return ms.sum(nums.get("n"));
     }
-
+    @PostMapping("/math/volume/{length}/{width}/{height}")
+    public String volume(@PathVariable int length, @PathVariable int width, @PathVariable int height){
+        return ms.volume(length, width, height);
+    }
 }

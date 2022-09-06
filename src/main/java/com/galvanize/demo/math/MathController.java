@@ -25,19 +25,16 @@ public class MathController {
     public String sum(@RequestParam List<Integer> n) {
         return ms.sum(n);
     }
-    @PostMapping("/volume/rectangle/{length}/{width}/{height}")
-    public String volumeRec(
-            @PathVariable int length,
-            @PathVariable int width,
-            @PathVariable int height) {
-        return ms.volumeRectangular(length, width, height);
+    @RequestMapping("/volume/rectangle/{l}/{w}/{h}")
+    public String volumeRec(@PathVariable int l, @PathVariable int w, @PathVariable int h) {
+        return ms.volumeRectangular(l, w, h);
     }
-    @PostMapping("/volume/sphere/{radius}")
+    @RequestMapping("/volume/sphere/{radius}")
     public String volumeSph(@PathVariable double radius){
         return ms.volumeSphere(radius);
     }
-    @PostMapping("/volume/cylinder/{radius}/{height}")
-    public String volumeCyl(@PathVariable int radius, @PathVariable int height){
+    @RequestMapping("/volume/cylinder/{radius}/{height}")
+    public String volumeCyl(@PathVariable double radius, @PathVariable double height){
         return ms.volumeCylindrical(radius, height);
     }
 

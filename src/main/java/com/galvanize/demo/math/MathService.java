@@ -34,13 +34,12 @@ public class MathService {
     }
 
     public String volumeRectangular (int l, int w, int h){
-        return String.format("The volume of a %dx%dx%d rectangle is %d", l, w, h, (l * w * h));
+        return String.format("The volume of a %dx%dx%d rectangle is %d", l, w, h, (l*w*h));
     }
     public String volumeSphere(double radius){
         return String.format("The volume of a radius %.2f sphere is %.3f", radius, (4.0/3.0)*radius*radius*radius*PI);
     }
-    public String volumeCylindrical(int radius, int height){
-        return String.format("The volume of a %dx%d cylinder is %.3f", radius, height, height*radius*radius*PI);
+    public String volumeCylindrical(double radius, double height){
+        return String.format("The volume of a r=%.2f h=%.2f cylinder is %.3f", radius, height, height*radius*radius*PI);
     }
-
 }

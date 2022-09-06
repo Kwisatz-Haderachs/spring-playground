@@ -65,6 +65,6 @@ public class TestMath {
                 .andExpect(content().string("The volume of a radius 3.10 sphere is 124.788"));
         this.mvc.perform(post("/math/volume/cylinder/3/5"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("The volume of a 3x5 cylinder is 141.372"));
+                .andExpect(content().string("The volume of a r=3.00 h=5.00 cylinder is 141.372"));
     }
 }

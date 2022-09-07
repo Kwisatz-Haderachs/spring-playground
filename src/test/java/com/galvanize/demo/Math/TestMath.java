@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -64,6 +67,89 @@ public class TestMath {
                 .andExpect(status().isOk())
                 .andExpect(content().string("The volume of a radius 3.10 sphere is 124.788"));
         this.mvc.perform(post("/math/volume/cylinder/3/5"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a r=3.00 h=5.00 cylinder is 141.372"));
+    }
+    @Test
+    public void testAreaCircle() throws Exception{
+        MockHttpServletRequestBuilder request = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "circle")
+                .param("length",  "4");
+        this.mvc.perform(request)
+                .andExpect(content().string("Invalid"));
+
+        MockHttpServletRequestBuilder request1 = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "circle")
+                .param("radius",  "4");
+        this.mvc.perform(request1)
+                .andExpect(content().string("Area of a circle with a radius of 4 is 50.26548"));
+    }
+    @Test
+    public void testAreaRectangle() throws Exception{
+        MockHttpServletRequestBuilder request = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "rectangle")
+                .param("length",  "4")
+                .param("width", "7");
+
+        this.mvc.perform(request)
+                .andExpect(content().string("Area of a 4x7 rectangle is 28"));
+
+        MockHttpServletRequestBuilder request1 = post("/math/area")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("type", "rectangle")
+                .param("radius", "4");
+        this.mvc.perform(request1)
+                .andExpect(content().string("Invalid"));
+    }
+    @Test
+    public void testAreaRectangleShape() throws Exception {
+        MockHttpServletRequestBuilder request = post("/math/area/rectangle")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("length", "4")
+                .param("width", "7");
+
+        this.mvc.perform(request)
+                .andExpect(content().string("Area of a 4x7 rectangle is 28"));
+    }
+    @Test
+    public void testAreaCircleShape() throws Exception {
+        MockHttpServletRequestBuilder request = post("/math/area/circle")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("radius", "4");
+        this.mvc.perform(request)
+                .andExpect(content().string("Area of a circle with a radius of 4 is 50.26548"));
+    }
+
+    @Test
+    public void testVolumeRectangularShape() throws Exception{
+        MockHttpServletRequestBuilder request = post("/math/volume/rectangle")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("length", "4")
+                .param("width", "5")
+                .param("height", "6");
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 4x5x6 rectangle is 120"));
+    }
+
+    @Test
+    public void testVolumeCircularShapes() throws Exception {
+        MockHttpServletRequestBuilder request = post("/math/volume/sphere")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("radius", "3.1");
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a radius 3.10 sphere is 124.788"));
+
+        MockHttpServletRequestBuilder request1 = post("/math/volume/cylinder")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("radius", "3")
+                .param("height", "5");
+        this.mvc.perform(request1)
                 .andExpect(status().isOk())
                 .andExpect(content().string("The volume of a r=3.00 h=5.00 cylinder is 141.372"));
     }

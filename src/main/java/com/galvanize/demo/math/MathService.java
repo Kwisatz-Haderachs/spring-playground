@@ -42,4 +42,22 @@ public class MathService {
     public String volumeCylindrical(double radius, double height){
         return String.format("The volume of a r=%.2f h=%.2f cylinder is %.3f", radius, height, height*radius*radius*PI);
     }
+
+    public String areaRectangle(int length, int width) {
+        return String.format("Area of a %dx%d rectangle is %d", length, width, length*width);
+    }
+
+    public String areaCircle(double radius) {
+        return String.format("Area of a circle with a radius of %.0f is %.5f", radius, (PI*radius*radius));
+    }
+    public String areaRectangle(Rectangular rectangle) {
+        int l = rectangle.getLength();
+        int w = rectangle.getWidth();
+        return String.format("Area of a %dx%d rectangle is %d", l,w, l*w);
+    }
+
+    public String areaCircle(Circular circle) {
+        double radius = circle.getRadius();
+        return String.format("Area of a circle with a radius of %.0f is %.5f", radius, (PI*radius*radius));
+    }
 }

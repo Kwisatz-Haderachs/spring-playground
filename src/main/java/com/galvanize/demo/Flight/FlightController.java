@@ -1,50 +1,53 @@
 package com.galvanize.demo.Flight;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class FlightController {
 
-    public List<Flight.Person> createPeople(){
-        List<Flight.Person> people = new ArrayList<>();
-        Flight.Person a = new Flight.Person();
+    public List<Person> createPeople(){
+        List<Person> people = new ArrayList<>();
+        Person a = new Person();
         a.setFirstName("Gordon");
         a.setLastName("Ryan");
         people.add(a);
-        Flight.Person b = new Flight.Person();
+        Person b = new Person();
         b.setFirstName("Nikolas");
         b.setLastName("Meregali");
         people.add(b);
-        Flight.Person c = new Flight.Person();
+        Person c = new Person();
         c.setFirstName("John");
         c.setLastName("Danaher");
         people.add(c);
-        Flight.Person d = new Flight.Person();
+        Person d = new Person();
         d.setFirstName("Craig");
         d.setLastName("Jones");
         people.add(d);
         return people;
     }
 
-    public List<Flight.Ticket> createTickets(){
-        List<Flight.Person> people = createPeople();
-        List<Flight.Ticket> ticketList = new ArrayList<>();
-        Flight.Ticket a = new Flight.Ticket();
+    public List<Ticket> createTickets(){
+        List<Person> people = createPeople();
+        List<Ticket> ticketList = new ArrayList<>();
+        Ticket a = new Ticket();
         a.setPassenger(people.get(0));
         a.setPrice(230);
-        Flight.Ticket b = new Flight.Ticket();
+        Ticket b = new Ticket();
         b.setPassenger(people.get(1));
         b.setPrice(234);
-        Flight.Ticket c = new Flight.Ticket();
+        Ticket c = new Ticket();
         c.setPassenger(people.get(2));
         c.setPrice(130);
-        Flight.Ticket d = new Flight.Ticket();
+        Ticket d = new Ticket();
         d.setPassenger(people.get(3));
         d.setPrice(243);
         ticketList.add(a);
@@ -55,7 +58,7 @@ public class FlightController {
     }
 
     public List<Flight> createFlights(){
-        List<Flight.Ticket> tickets = createTickets();
+        List<Ticket> tickets = createTickets();
         List<Flight> flights = new ArrayList<>();
         Flight a = new Flight();
         a.setTickets(tickets);
@@ -80,4 +83,16 @@ public class FlightController {
     public List<Flight> getFlights(){
         return createFlights();
     }
+
+    @PostMapping("/flights/tickets/total")
+    public Map<String, Integer> calculateTicketTotal(@RequestBody Map<String, List<Ticket>> tickets ){
+        int sum = 0;
+        for (Ticket t : tickets.get("tickets")) {
+            sum += t.getPrice();
+        }
+        Map<String, Integer> calculate = new HashMap<>();
+        calculate.put("result", sum);
+        return calculate;
+    }
+
 }

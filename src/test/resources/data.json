@@ -1,0 +1,18 @@
+{
+  "tickets": [
+    {
+      "PASSENGER": {
+        "firstName": "Paul",
+        "lastName": "Atreides"
+      },
+      "PRICE": 250
+    },
+    {
+      "PASSENGER":{
+        "firstName": "Saito",
+        "lastName": "Kubaiashi"
+      },
+      "PRICE": 250
+    }
+  ]
+}

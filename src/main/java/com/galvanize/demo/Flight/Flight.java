@@ -45,35 +45,4 @@ public class Flight {
 
     public void setPilot(Person pilot) { this.pilot = pilot; }
 
-    static class Ticket{
-        private Person passenger;
-        private int price;
-
-        @JsonGetter("Passenger")
-        public Person getPassenger() {return passenger;}
-
-        @JsonSetter("PASSENGER")
-        public void setPassenger(Person person) {this.passenger = person;}
-
-        @JsonGetter("Price")
-        public int getPrice() {return price;}
-
-        @JsonSetter("PRICE")
-        public void setPrice(int price) {this.price = price;}
-    }
-
-    static class Person {
-        private String firstName;
-        private String lastName;
-
-        @JsonGetter("FirstName")
-        public String getFirstName() { return firstName; }
-
-        public void setFirstName(String firstName) { this.firstName = firstName; }
-
-        @JsonGetter("LastName")
-        public String getLastName() {return lastName;}
-
-        public void setLastName(String lastName) {this.lastName = lastName;}
-    }
 }

@@ -1,4 +1,4 @@
-package com.galvanize.demo;
+package com.galvanize.demo.Employee;
 
 public class Employee {
     String firstName;

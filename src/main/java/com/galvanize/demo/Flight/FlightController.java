@@ -11,55 +11,73 @@ import java.util.List;
 @RestController
 public class FlightController {
 
+    public List<Flight.Person> createPeople(){
+        List<Flight.Person> people = new ArrayList<>();
+        Flight.Person a = new Flight.Person();
+        a.setFirstName("Gordon");
+        a.setLastName("Ryan");
+        people.add(a);
+        Flight.Person b = new Flight.Person();
+        b.setFirstName("Nikolas");
+        b.setLastName("Meregali");
+        people.add(b);
+        Flight.Person c = new Flight.Person();
+        c.setFirstName("John");
+        c.setLastName("Danaher");
+        people.add(c);
+        Flight.Person d = new Flight.Person();
+        d.setFirstName("Craig");
+        d.setLastName("Jones");
+        people.add(d);
+        return people;
+    }
+
+    public List<Flight.Ticket> createTickets(){
+        List<Flight.Person> people = createPeople();
+        List<Flight.Ticket> ticketList = new ArrayList<>();
+        Flight.Ticket a = new Flight.Ticket();
+        a.setPassenger(people.get(0));
+        a.setPrice(230);
+        Flight.Ticket b = new Flight.Ticket();
+        b.setPassenger(people.get(1));
+        b.setPrice(234);
+        Flight.Ticket c = new Flight.Ticket();
+        c.setPassenger(people.get(2));
+        c.setPrice(130);
+        Flight.Ticket d = new Flight.Ticket();
+        d.setPassenger(people.get(3));
+        d.setPrice(243);
+        ticketList.add(a);
+        ticketList.add(b);
+        ticketList.add(c);
+        ticketList.add(d);
+        return ticketList;
+    }
+
+    public List<Flight> createFlights(){
+        List<Flight.Ticket> tickets = createTickets();
+        List<Flight> flights = new ArrayList<>();
+        Flight a = new Flight();
+        a.setTickets(tickets);
+        a.setDestination("London");
+        a.setDeparts(LocalDateTime.of(2021,4,6, 14,36));
+        Flight b = new Flight();
+        b.setTickets(tickets);
+        b.setDestination("Las Vegas");
+        b.setDeparts(LocalDateTime.of(2022,9,12,15,36));
+        flights.add(a);
+        flights.add(b);
+        return flights;
+    }
+
     @RequestMapping("/json/flights/flight")
     public Flight getFlight(){
-        Flight f = new Flight();
-        List<Flight.Ticket> ticketList = new ArrayList<>();
-        f.setTickets(ticketList);
-        f.setDestination("London");
-        f.setDeparts(LocalDateTime.of(2017,4,6, 14,36));
-        Flight.Ticket t = new Flight.Ticket();
-        Flight.Person p = new Flight.Person();
-        p.setFirstName("Dwayne");
-        p.setLastName("Johnson");
-        t.setPassenger(p);
-        t.setPrice(200);
-        f.getTickets().add(t);
-        return f;
+        List<Flight> flights = createFlights();
+        return flights.get(0);
     }
 
     @RequestMapping("/json/flights")
     public List<Flight> getFlights(){
-        List<Flight> flights = new ArrayList<>();
-        Flight f = new Flight();
-        List<Flight.Ticket> ticketList1 = new ArrayList<>();
-        f.setTickets(ticketList1);
-        f.setDestination("London");
-        f.setDeparts(LocalDateTime.of(2017,4,6, 14,36));
-        Flight.Ticket t = new Flight.Ticket();
-        Flight.Person p = new Flight.Person();
-        p.setFirstName("Dwayne");
-        p.setLastName("Johnson");
-        t.setPassenger(p);
-        t.setPrice(200);
-        f.getTickets().add(t);
-        flights.add(f);
-
-        Flight g = new Flight();
-        List<Flight.Ticket> ticketList2 = new ArrayList<>();
-        g.setTickets(ticketList2);
-        g.setDestination("Las Vegas");
-        g.setDeparts(LocalDateTime.of(2022,9,12, 15,36));
-        Flight.Ticket a = new Flight.Ticket();
-        Flight.Person b = new Flight.Person();
-        b.setFirstName("Nikolas");
-        b.setLastName("Meregali");
-        a.setPassenger(b);
-        a.setPrice(200);
-        g.getTickets().add(a);
-        flights.add(g);
-
-
-        return flights;
+        return createFlights();
     }
 }

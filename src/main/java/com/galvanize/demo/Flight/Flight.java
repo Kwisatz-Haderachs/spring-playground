@@ -2,6 +2,7 @@ package com.galvanize.demo.Flight;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.time.LocalDateTime;
@@ -20,18 +21,18 @@ public class Flight {
 
     public void setId(int id) { this.id = id; }
 
-    @JsonGetter("Destination")
+    @JsonProperty("Destination")
     public String getDestination() { return destination; }
 
-    @JsonSetter("DESTINATION")
+    @JsonProperty("DESTINATION")
     public void setDestination(String destination) { this.destination = destination; }
 
-    @JsonGetter("Tickets")
+    @JsonProperty("Tickets")
     public List<Ticket> getTickets() {
         return tickets;
     }
 
-    @JsonSetter("TICKETS")
+    @JsonProperty("TICKETS")
     public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }

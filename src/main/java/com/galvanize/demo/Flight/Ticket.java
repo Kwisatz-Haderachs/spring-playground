@@ -1,21 +1,22 @@
 package com.galvanize.demo.Flight;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class Ticket {
     private Person passenger;
     private int price;
 
-    @JsonGetter("PASSENGER")
+    @JsonProperty("PASSENGER")
     public Person getPassenger() {return passenger;}
 
-    @JsonSetter("PASSENGER")
+    @JsonProperty("PASSENGER")
     public void setPassenger(Person person) {this.passenger = person;}
 
-    @JsonGetter("PRICE")
+    @JsonProperty("PRICE")
     public int getPrice() {return price;}
 
-    @JsonSetter("PRICE")
+    @JsonProperty("PRICE")
     public void setPrice(int price) {this.price = price;}
 }

@@ -7,7 +7,7 @@ public class Ticket {
     private Person passenger;
     private int price;
 
-    @JsonGetter("Passenger")
+    @JsonGetter("PASSENGER")
     public Person getPassenger() {return passenger;}
 
     @JsonSetter("PASSENGER")

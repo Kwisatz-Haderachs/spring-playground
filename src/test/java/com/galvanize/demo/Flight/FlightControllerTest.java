@@ -139,4 +139,83 @@ public class FlightControllerTest {
         assert url != null;
         return new String(Files.readAllBytes(Paths.get(url.getFile())));
     }
+
+    @Test
+    public void testGetListofPassengers() throws Exception {
+        MockHttpServletRequestBuilder request = post("/flights/tickets/passengers")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                        {
+                        "tickets": [
+                            {
+                                "PASSENGER": {
+                                    "firstName": "Paul",
+                                    "lastName": "Atreides"
+                                },
+                                "PRICE": 250
+                            },
+                            {
+                            "PASSENGER":{
+                                    "firstName": "Saito",
+                                    "lastName": "Kubaiashi"
+                                },
+                                "PRICE": 250
+                            }
+                        ]
+                        }
+                        """);
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.passengers[0]", is("Paul Atreides")))
+                .andExpect(jsonPath("$.passengers[1]", is("Saito Kubaiashi")));
+    }
+
+    @Test
+    public void testPassengerMap() throws Exception {
+        Person p = new Person();
+        p.setFirstName("John");
+        p.setLastName("Wick");
+        Person t = new Person();
+        t.setFirstName("Kobyashi");
+        t.setLastName("Maru");
+        Ticket a = new Ticket();
+        a.setPassenger(p);
+        a.setPrice(250);
+        Ticket b = new Ticket();
+        b.setPassenger(t);
+        b.setPrice(250);
+        List<Ticket> ticketList = new ArrayList<>();
+        ticketList.add(a);
+        ticketList.add(b);
+        HashMap<String, List<Ticket>> tickets = new HashMap<>(){  // 2
+            {
+                put("tickets", ticketList);
+            }
+        };
+
+        String json = objectMapper.writeValueAsString(tickets);            // 3
+
+        MockHttpServletRequestBuilder request = post("/flights/tickets/passengers")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);                                         // 4
+
+        this.mvc.perform(request).andExpect(status().isOk())
+                .andExpect(jsonPath("$.passengers[0]", is("John Wick")))
+                .andExpect(jsonPath("$.passengers[1]", is("Kobyashi Maru")));
+    }
+
+    @Test
+    public void testRawBodyPassengers() throws Exception {
+        String json = getJSON();
+        MockHttpServletRequestBuilder request = post("/flights/tickets/passengers")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        this.mvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.passengers[0]", is("Paul Atreides")))
+                .andExpect(jsonPath("$.passengers[1]", is("Saito Kubaiashi")));
+    }
+
 }

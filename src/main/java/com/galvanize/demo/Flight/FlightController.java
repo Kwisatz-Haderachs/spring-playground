@@ -95,4 +95,15 @@ public class FlightController {
         return calculate;
     }
 
+    @PostMapping("/flights/tickets/passengers")
+    public Map<String, List<String>> listOfPassengers(@RequestBody Map<String, List<Ticket>> tickets ){
+        List<String> passenger = new ArrayList<>();
+        for (Ticket t : tickets.get("tickets")) {
+            String p = t.getPassenger().getFirstName() + " " + t.getPassenger().getLastName();
+            passenger.add(p);
+        }
+        Map<String, List<String>> passengers = new HashMap<>();
+        passengers.put("passengers", passenger);
+        return passengers;
+    }
 }
